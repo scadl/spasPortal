@@ -9,7 +9,7 @@
                         <div
                             class="flex-grow-1 text-primary text-uppercase font-weight-bold"> {{ __('ui.panel') }}</div>
                         @auth
-                            <div class="btn btn-sm btn-outline-primary text-right">
+                            <div class="btn btn-sm btn-outline-primary text-right" id="fScan">
                                 <i class="fas fa-retweet"></i>
                                 {{ __('ui.rescan') }}
                             </div>
@@ -27,18 +27,28 @@
                             <div class="alert alert-danger">{{ __('ui.login_req') }}</div>
                         @else
 
-                            <table class="table table-striped table-bordered ">
+                            <table class="table table-bordered">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">{{__('ui.tb_col1')}}</th>
-                                    <th scope="col" style="text-align: center">{{__('ui.tb_col2')}}</th>
+                                    <th scope="col" class="controls col-sm-2"><i class="fas fa-play-circle"></i> {{__('ui.tb_col3')}}</th>
+                                    <th scope="col" class="controls col-sm-2"><i class="fas fa-file-audio"></i> {{__('ui.tb_col4')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($song_list as $song)
+                                    @if($song->type == 'dir')
+                                        <tr class="thead-light">
+                                            <th colspan="3">{{$song->title}}</th>
+                                        </tr>
+                                        @elseif($song->type == 'txt')
+                                        <tr class="thead-light">
+                                            <th colspan="3" class="font-weight-lighter">{{$song->description}}</th>
+                                        </tr>
+                                    @else
                                     <tr>
-                                        <th scope="row">{{$song->title}}</th>
-                                        <td>
+                                        <td style="text-align: left">{{$song->title}}</td>
+                                        <td class="controls">
                                             <div class="btn-group">
                                                 <div class="btn btn-sm btn-outline-primary play_btn"
                                                      audio_id="{{$song->id}}" route="{{route('mplay', $song->id)}}">
@@ -49,6 +59,8 @@
                                                     {{ $song->played }}
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td class="controls">
                                             <div class="btn-group">
                                                 <a class="btn btn-sm btn-outline-success dw_btn"
                                                      audio_id="{{$song->id}}" route="{{route('mdown', $song->id)}}"
@@ -60,16 +72,14 @@
                                                     {{ $song->downloads }}
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="p-0">
+                                            <!-- audio object -->
                                             <audio id="audio_object_{{$song->id}}">
                                                 <source src="{{$song->file_name}}" type="audio/mpeg">
                                                 {{ __('ui.err_play') }}
                                             </audio>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

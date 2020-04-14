@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // --------------------------------------
     // Async data loading
-     function asyncSend(tUri, sObj){
+     function asyncSend(tUri, sObj, isTextRes){
          var res = -1;
          $.ajax({
              method: "GET",
@@ -11,13 +11,25 @@ $(document).ready(function () {
              data: {},
              dataType: "html",
          }).done(function (data) {
-             sObj.innerText = data;
+             if(isTextRes) {
+                 sObj.innerText = data;
+             } else {
+                 console.log(data);
+                 $('#fScan').removeClass('disabled');
+                 window.location = panelRoute;
+             }
              //console.log(data);
          }).fail(function (jqXHR, textStatus) {
             console.error(textStatus);
          });
          return res;
      }
+
+     // other buttons
+    $('#fScan').click(function () {
+        $(this).addClass('disabled');
+        asyncSend(scanRoute, null, false);
+    });
 
      // --------------------------------------
      // My Player logic
@@ -46,7 +58,7 @@ $(document).ready(function () {
                 btnIconSwitch(btn, true);
                 // Play event
                 var myRoute = this.getAttribute('route');
-                var asRes = asyncSend(myRoute, playBadge);
+                var asRes = asyncSend(myRoute, playBadge, true);
             } else {
                 audio.pause();
                 btnIconSwitch(btn, false);
@@ -60,7 +72,8 @@ $(document).ready(function () {
             var audioID = this.getAttribute('audio_id');
             var dwBadge = document.getElementById('dw_num_' + audioID)
             var myRoute = this.getAttribute('route');
-            asyncSend(myRoute, dwBadge); // download event
+            asyncSend(myRoute, dwBadge, true); // download event
         }
     }
+
 });

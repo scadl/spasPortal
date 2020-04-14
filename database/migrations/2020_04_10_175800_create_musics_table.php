@@ -21,6 +21,7 @@ class CreateMusicsTable extends Migration
             $table->integer('downloads');
             $table->boolean('hidden');
             $table->string('file_name');
+            $table->string('type');
             $table->timestamps();
         });
     }

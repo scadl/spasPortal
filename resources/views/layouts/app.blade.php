@@ -10,6 +10,11 @@
     <title>{{ __('ui.h1_title') }}</title>
 
     <!-- Scripts -->
+    <script type="text/javascript">
+        // Globals
+        var scanRoute = "{{route('rescan')}}";
+        var panelRoute = "{{route('home')}}";
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/myScript.js') }}" defer></script>
 
@@ -21,7 +26,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style type="text/css">
-        td{
+        .controls{
             text-align: center;
         }
     </style>

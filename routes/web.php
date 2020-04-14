@@ -30,4 +30,5 @@ Auth::routes();
 Route::get('/home', 'MusicController@index')->name('home');
 Route::get('/music/play/{music}/', 'MusicController@playlog')->name('mplay');
 Route::get('/music/download/{music}/', 'MusicController@dwlog')->name('mdown');
+Route::get('/music/scan/', 'MusicController@filerefresh')->name('rescan');
 
