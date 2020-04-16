@@ -3,16 +3,24 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex flex-row">
                         <div
                             class="flex-grow-1 text-primary text-uppercase font-weight-bold"> {{ __('ui.panel') }}</div>
                         @auth
+                        @if(Auth::user()->isAdmin)
+                        <div class="btn-group">
                             <div class="btn btn-sm btn-outline-primary text-right" id="fScan">
                                 <i class="fas fa-retweet"></i>
                                 {{ __('ui.rescan') }}
                             </div>
+                            <a href="{{route('ucontrol')}}" class="btn btn-sm btn-outline-primary text-right">
+                                <i class="fas fa-user-cog"></i>
+                                {{ __('ui.umanage') }}
+                            </a>
+                        </div>
+                        @endif
                         @endauth
                     </div>
 
@@ -30,24 +38,26 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">{{__('ui.tb_col1')}}</th>
-                                    <th scope="col" class="controls col-sm-2"><i class="fas fa-play-circle"></i> {{__('ui.tb_col3')}}</th>
-                                    <th scope="col" class="controls col-sm-2"><i class="fas fa-file-audio"></i> {{__('ui.tb_col4')}}</th>
+                                    <th scope="col">{{__('ui.tb_title')}}</th>
+                                    <th scope="col" class="controls col-sm-1"><i class="fas fa-play-circle"></i> {{__('ui.tb_play')}}</th>
+                                    <th scope="col" class="controls col-sm-1"><i class="fas fa-file-audio"></i> {{__('ui.tb_down')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($song_list as $song)
                                     @if($song->type == 'dir')
                                         <tr class="thead-light">
-                                            <th colspan="3">{{$song->title}}</th>
+                                            <th colspan="4">{{$song->title}}</th>
                                         </tr>
                                         @elseif($song->type == 'txt')
                                         <tr class="thead-light">
-                                            <th colspan="3" class="font-weight-lighter">{{$song->description}}</th>
+                                            <th colspan="4" class="font-weight-lighter">{{$song->description}}</th>
                                         </tr>
                                     @else
                                     <tr>
-                                        <td style="text-align: left">{{$song->title}}</td>
+                                        <td style="text-align: left">
+                                            {{$song->title}}
+                                        </td>
                                         <td class="controls">
                                             <div class="btn-group">
                                                 <div class="btn btn-sm btn-outline-primary play_btn"

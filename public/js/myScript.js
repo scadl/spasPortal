@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // --------------------------------------
     // Async data loading
-     function asyncSend(tUri, sObj, isTextRes){
+     function asyncSend(tUri, sObj, isTxtResp){
          var res = -1;
          $.ajax({
              method: "GET",
@@ -11,7 +11,7 @@ $(document).ready(function () {
              data: {},
              dataType: "html",
          }).done(function (data) {
-             if(isTextRes) {
+             if(isTxtResp) {
                  sObj.innerText = data;
              } else {
                  console.log(data);
@@ -25,7 +25,7 @@ $(document).ready(function () {
          return res;
      }
 
-     // other buttons
+     // "Scan files" button
     $('#fScan').click(function () {
         $(this).addClass('disabled');
         asyncSend(scanRoute, null, false);

@@ -42,7 +42,11 @@ class MusicController extends Controller
 
         // Scan for files
         $fIndex = array();
-        $files = Storage::disk('local')->listContents('public/audio', true);
+        try {
+            $files = Storage::disk('local')->listContents('public/audio', true);
+        } catch (\Exception $e){
+            $files = array();
+        }
         //return $files;
 
         // Update storage index

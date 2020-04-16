@@ -31,4 +31,8 @@ Route::get('/home', 'MusicController@index')->name('home');
 Route::get('/music/play/{music}/', 'MusicController@playlog')->name('mplay');
 Route::get('/music/download/{music}/', 'MusicController@dwlog')->name('mdown');
 Route::get('/music/scan/', 'MusicController@filerefresh')->name('rescan');
+Route::get('/users/', 'HomeController@usersControl')->name('ucontrol');
+Route::get('/users/{user}', 'HomeController@userSwitch')->name('uswitch');
+Route::get('/users_shutdown', 'HomeController@userShutdown')->name('ushutdown');
+Route::get('/users_allow', 'HomeController@userGreenlight')->name('ugreen');
 
