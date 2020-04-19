@@ -41,8 +41,11 @@ class HomeController extends Controller
     public function userShutdown(){
         $users = User::all();
         foreach ($users as $user) {
-            $user->isEnabled = false;
-            $user->save();
+            if(!$user->isAdmin) {
+                $user->isEnabled = false;
+                $user->save();
+            }
+
         }
         return redirect('users');
     }
@@ -50,8 +53,10 @@ class HomeController extends Controller
     public function userGreenlight(){
         $users = User::all();
         foreach ($users as $user) {
-            $user->isEnabled = true;
-            $user->save();
+            if(!$user->isAdmin) {
+                $user->isEnabled = true;
+                $user->save();
+            }
         }
         return redirect('users');
     }

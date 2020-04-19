@@ -15,7 +15,9 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('ui.name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -43,8 +45,15 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('ui.pwd_lb') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <div class="input-group">
 
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <div class="input-group-append">
+                                        <div class="btn btn-outline-secondary" id="passgen" title="{{__('ui.gen_passw')}}">
+                                            <i class="fas fa-redo-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -62,7 +71,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-4 btn-group">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('ui.register') }}
                                 </button>

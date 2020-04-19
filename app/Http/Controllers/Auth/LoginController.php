@@ -45,4 +45,11 @@ class LoginController extends Controller
     {
         return array_merge($request->only($this->username(), 'password'),['isEnabled'=>true]);
     }
+
+    // Add some logic, if The user has been authenticated.
+    protected function authenticated(Request $request, $user)
+    {
+        $user->numLogin += 1;
+        $user->save();
+    }
 }

@@ -29,6 +29,12 @@
         .controls{
             text-align: center;
         }
+        div.dropdown-item{
+            cursor: pointer;
+        }
+        .btn {
+            white-space: normal;
+        }
     </style>
 
 </head>
@@ -48,6 +54,9 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
+
+                    <!-- Fix for navbar collapse event -->
+                    <!-- https://github.com/twbs/bootstrap/issues/30553#issuecomment-612617589 -->
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -84,6 +93,7 @@
                 </div>
             </div>
         </nav>
+
 
         <main class="py-4">
 

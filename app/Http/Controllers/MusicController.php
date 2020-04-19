@@ -53,8 +53,9 @@ class MusicController extends Controller
         $songs = Music::all();
         foreach ($files as $f) {
             $fix_path = Str::replaceFirst('public/', 'storage/', $f['path']);
+            $melody_db = Music::where('file_name', $fix_path)->first();
             // add NEW files to DB
-            if (!Music::where('file_name', $fix_path)->first()) {
+            if (!$melody_db) {
                 $melody = new Music();
                 $melody->title = $f['filename'];
                 $melody->description = $f['filename'];
@@ -73,11 +74,19 @@ class MusicController extends Controller
                         $melody->type = $f['extension'];
                     }
                 }
-
                 $melody->save();
+            } else {
+                // Update description, even if it's already fetched to db
+                // Update data ONLY from TXT files, leave folders and mp3 as it is
+                if ($f['type'] == 'file' && $f['extension'] == 'txt') {
+                    $melody = $melody_db;
+                    $melody->description = Storage::disk('local')->read($f['path']);
+                    $melody->save();
+                }
             }
             $fIndex[] = $fix_path;
         }
+
         // Clean DB of OLD files
         $musicdB = Music::all();
         foreach ($musicdB as $song) {
@@ -89,9 +98,18 @@ class MusicController extends Controller
         return $files;
     }
 
-    public function null(Music $music)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Music $music
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Music $music)
     {
-        return null;
+        $music->title = $request->newname;
+        $music->save();
+        return true;
     }
 
     /**
@@ -133,18 +151,6 @@ class MusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Music $music)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Music $music
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Music $music)
     {
         //
     }

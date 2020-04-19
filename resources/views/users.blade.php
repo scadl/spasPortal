@@ -43,18 +43,22 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">{{__('ui.tb_uname')}}</th>
-                                    <th scope="col" class="controls col-sm-1">{{__('ui.tb_ctrl')}}</th>
+                                    <th scope="col" class="col-8">{{__('ui.tb_uname')}}</th>
+                                    <th scope="col" class="controls col-sm-1" title="{{__('ui.logs')}}"><i class="fas fa-sign-in-alt"></th>
+                                    <th scope="col" class="controls col-sm-1" title="{{__('ui.tb_ctrl')}}"><i class="fas fa-wrench"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($user_list as $user)
-                                    @if(!$user->isAdmin)
                                     <tr>
                                         <td style="text-align: left; @if(!$user->isEnabled) text-decoration:line-through @endif">
                                             {{$user->name}}
                                         </td>
+                                        <td class="text-center">
+                                            {{$user->numLogin}}
+                                        </td>
                                         <td class="controls">
+                                            @if(!$user->isAdmin)
                                             <div class="btn-group">
                                                 <a class="btn btn-sm btn-outline-primary play_btn"
                                                      href="{{route('uswitch', $user->id)}}">
@@ -62,8 +66,8 @@
                                                 </a>
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
-                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
