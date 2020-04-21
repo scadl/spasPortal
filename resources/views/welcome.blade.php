@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('content')
-    <div class="title m-b-md">
+    <div class="title text-truncate text-wrap mx-5 px-3">
         {{ __('ui.h1_title') }}
     </div>
 

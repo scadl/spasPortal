@@ -12,17 +12,14 @@
                             @auth
                                 @if(Auth::user()->isAdmin)
                                     <div class="btn-group">
-                                        <a href="{{route('home')}}" class="btn btn-sm btn-outline-primary text-right">
-                                            <i class="fas fa-walking"></i>
-                                            {{ __('ui.back_catlog') }}
+                                        <a href="{{route('home')}}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.back_catlog') }}">
+                                            &larr;&nbsp;<i class="fas fa-walking"></i>
                                         </a>
-                                        <a href="{{route('ushutdown')}}" class="btn btn-sm btn-outline-primary text-right">
+                                        <a href="{{route('ushutdown')}}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.disable_all') }}">
                                             <i class="fas fa-user-slash"></i>
-                                            {{ __('ui.disable_all') }}
                                         </a>
-                                        <a href="{{route('ugreen')}}" class="btn btn-sm btn-outline-primary text-right">
+                                        <a href="{{route('ugreen')}}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.allow_all') }}">
                                             <i class="fas fa-user"></i>
-                                            {{ __('ui.allow_all') }}
                                         </a>
                                     </div>
                                 @endif

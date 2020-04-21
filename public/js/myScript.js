@@ -78,7 +78,7 @@ $(document).ready(function () {
     }
     function secToHMS(sec) {
         var date = new Date(0);
-        date.setSeconds(sec);
+        date.setSeconds(Math.round(sec));
         return date.toISOString().substr(11,8);
     }
     function playTimePos(audioID) {

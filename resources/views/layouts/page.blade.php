@@ -67,8 +67,8 @@
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
         <div class="top-right links">
-            <a href="/lang/en">🇬🇧</a>
-            <a href="/lang/ru">🇷🇺</a>
+            <a href="/lang/en">EN</a>
+            <a href="/lang/ru">RU</a>
             @auth
                 <a href="{{ url('/home') }}">🎧{{ __('ui.panel') }}</a>
             @else
