@@ -135,11 +135,14 @@ $(document).ready(function () {
         }
     })
     // Prescan Durations
+    function loadedAudio(){
+        document.getElementById("trkTime_" + audioID).innerText = secToHMS(audio.duration);
+    }
     var audios = document.getElementsByClassName('audio');
     for (var i = 0; i < audios.length; i++) {
         var audioID = audios[i].getAttribute('audio_id');
         var audio = document.getElementById('audio_object_' + audioID);
-        document.getElementById("trkTime_"+ audioID).innerText = secToHMS(audio.duration);
+        audio.addEventListener("loadeddata", loadedAudio());
     }
     // Downloads dynamics
     var downs = document.getElementsByClassName('dw_btn');

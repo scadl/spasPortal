@@ -9,59 +9,12 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
+    <link href="{{ asset('css/page.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="flex-center position-ref full-height">
@@ -75,7 +28,16 @@
                 <a href="{{ route('login') }}">{{ __('ui.login') }}</a>
 
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}">{{__('ui.register')}}</a>
+                    <a
+                    @if($srv_state['lockdown']=='yes')
+                    style="text-decoration: line-through"
+                    data-toggle="modal" data-target="#noticeModal"
+                    @else
+                    href="{{ route('register') }}"
+                    @endif
+                    >
+                        {{__('ui.register')}}
+                    </a>
                 @endif
             @endauth
         </div>
@@ -84,6 +46,29 @@
     <div class="content">
         @yield('content')
     </div>
+
 </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="noticeModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="noticeModalLabel">{{ __('ui.lockdown_on') }}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               {{ $srv_state['lockdown_msg'] }}
+               <a href="mailto:{{ $srv_state['srv_email'] }}">{{ $srv_state['srv_email'] }}</a>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
 </body>
 </html>

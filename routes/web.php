@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\dataManipulator;
+use App\Settings;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['srv_state'=>dataManipulator::objArrToAssoc(Settings::all())]);
 });
+
 Route::get('/lang/{locale}', function ($locale) {
     if (! in_array($locale, ['en', 'ru'])) {
         abort(400);
@@ -36,4 +40,9 @@ Route::get('/users/', 'HomeController@usersControl')->name('ucontrol');
 Route::get('/users/{user}', 'HomeController@userSwitch')->name('uswitch');
 Route::get('/users_shutdown', 'HomeController@userShutdown')->name('ushutdown');
 Route::get('/users_allow', 'HomeController@userGreenlight')->name('ugreen');
+Route::get('/pwreset/{user}/{orig}', 'HomeController@pwResetAsk')->name('asknepw');
+Route::post('/pwupdate/{user}', 'HomeController@usrUpdatePw')->name('nepwupd');
+Route::post('/lockreg', 'HomeController@switchRegLock')->name('lockregon');
+Route::get('/lockoff', 'HomeController@switchRegLock')->name('lockregoff');
+Route::get('/useradd', 'HomeController@userAdd')->name('manualadd');
 

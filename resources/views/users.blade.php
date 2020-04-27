@@ -21,6 +21,9 @@
                                         <a href="{{route('ugreen')}}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.allow_all') }}">
                                             <i class="fas fa-user"></i>
                                         </a>
+                                        <a href="{{ route('manualadd') }}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.register2') }}">
+                                            <i class="fas fa-user-plus"></i>
+                                        </a>
                                     </div>
                                 @endif
                             @endauth
@@ -56,12 +59,16 @@
                                         </td>
                                         <td class="controls">
                                             @if(!$user->isAdmin)
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-primary play_btn"
+
+                                                <a class="btn btn-sm btn-outline-primary"
                                                      href="{{route('uswitch', $user->id)}}">
                                                     <i class="fas @if(!$user->isEnabled)fa-user-slash @else fa-user @endif"></i>
                                                 </a>
-                                            </div>
+                                                <a class="btn btn-sm btn-outline-primary"
+                                                   href="{{route('asknepw', [$user->id, 'users'])}}">
+                                                    <i class="fas fa-key"></i>
+                                                </a>
+
                                         </td>
                                         @endif
                                     </tr>
@@ -76,4 +83,7 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('modals')
 @endsection

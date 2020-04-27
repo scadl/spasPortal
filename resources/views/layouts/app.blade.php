@@ -84,10 +84,14 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('ui.logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+                                    <a class="dropdown-item" href="{{ route('asknepw', [Auth::user()->id, 'home']) }}">
+                                        {{__('ui.chpass')}}
+                                    </a>
+
                                 </div>
                             </li>
                         @endguest
@@ -100,6 +104,7 @@
         <main class="py-4">
 
             @yield('content')
+            @yield('modals')
 
         </main>
 

@@ -1,9 +1,12 @@
 <?php
 
 return[
+    'ok' => 'OK',
+    'cancel' => 'Cancel',
     'h1_title' => 'Znamen Archive',
     'login' => 'Login',
     'register' => 'Register',
+    'register2' => 'Register a user',
     'name' => 'Full Name',
     'pwd_lb' => 'Password',
     'pwd_lb2' => 'Confirm Password',
@@ -32,7 +35,18 @@ return[
     'logs' => 'login times',
     's_fwd' => 'Step forward',
     's_bkw' => 'Step backward',
+    'chpass' => 'Change password',
+    'new_pred' => 'New',
+    'resetpw' => 'Reset Password',
+    'pwchok' => 'Password changed successfully',
     'login_req' => 'Please login, to listen audio',
+    'lockreg' => 'Control user registration',
+    'unlockreg' => 'Unlock user registration',
     'err_play' => 'Your browser does not support the audio element.',
     'docs' => 'Big catalog of classic orthodox songs, recorded in our cathedral',
+    'lock_msg' => 'Lockdown message for guests',
+    'srv_email' => 'E-mail for registration invoices',
+    'lockdown_on' => 'Lockdown Initiated. Registration closed.',
+    'lockdown_off' => 'Lockdown canceled. Registration opened.',
+    'lockdown_ask' => 'Disable lockdown and open the Registration?',
 ];

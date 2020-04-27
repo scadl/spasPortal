@@ -7,16 +7,23 @@
                 <div class="card">
                     <div class="card-header d-flex flex-row">
                         <div
-                            class="flex-grow-1 text-primary text-uppercase font-weight-bold"> {{ __('ui.panel') }}</div>
+                            class="flex-grow-1 text-primary text-uppercase font-weight-bold">
+                            <i class="fas fa-music"></i>
+                            {{ __('ui.panel') }}
+                        </div>
                         @auth
                         @if(Auth::user()->isAdmin)
                         <div class="btn-group">
-                            <div class="btn btn-sm btn-outline-primary text-left" id="fScan" title="{{ __('ui.rescan') }}">
+                            <div class="btn btn-sm btn-outline-primary text-left text-truncate" id="fScan" title="{{ __('ui.rescan') }}">
                                 <i class="fas fa-sync"></i>
                             </div>
-                            <a href="{{route('ucontrol')}}" class="btn btn-sm btn-outline-primary text-right" title="{{ __('ui.umanage') }}">
+                            <a href="{{route('ucontrol')}}" class="btn btn-sm btn-outline-primary text-right text-truncate" title="{{ __('ui.umanage') }}">
                                 <i class="fas fa-user-cog"></i>
                             </a>
+                            <button data-toggle="modal" data-target="@if($srv_state['lockdown']=='yes')#exitLockdownModal @else#lockdownModal @endif"
+                                    class="btn btn-sm btn-outline-primary text-right text-truncate" title="{{__('ui.lockreg')}}">
+                                <i class="fas @if($srv_state['lockdown']=='yes') fa-unlock-alt @else fa-lock @endif"></i>
+                            </button>
                         </div>
                         @endif
                         @endauth
@@ -89,21 +96,7 @@
                                                     {{ __('ui.err_play') }}
                                                 </audio>
                                         </div>
-                                        <!--
-                                        <div class="controls col-sm col-sm-auto">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-success dw_btn"
-                                                   audio_id="{{$song->id}}" route="{{route('mdown', $song->id)}}"
-                                                   href="{{$song->file_name}}" target="_blank">
-                                                    <i class="fas fa-file-download"></i>
-                                                </a>
-                                                <div class="btn btn-sm btn-outline-success disabled" id="dw_num_{{$song->id}}"
-                                                     title="{{__('ui.badge_down')}}">
-                                                    {{ $song->downloads }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        -->
+
                                         <div class="controls col-md-auto btn-group-vertical btn-toolbar">
 
                                             <div class="btn-group">
@@ -165,6 +158,66 @@
                         @endguest
 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+
+@section('modals')
+    <div class="modal fade" id="exitLockdownModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('ui.lockreg')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{__('ui.lockdown_ask')}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {{__('ui.cancel')}}</button>
+                    <a href="{{route('lockregoff')}}" type="button" class="btn btn-primary">{{__('ui.ok')}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="lockdownModal" tabindex="-1" role="dialog" aria-labelledby="lockdownModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lockdownModalLabel">{{__('ui.lockreg')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('lockregon')}}" method="post" id="srvModeParam">
+                        @csrf
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">{{__('ui.lock_msg')}}:</label>
+                            <textarea class="form-control" name="message_text">{{$srv_state['lockdown_msg']}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">{{__('ui.srv_email')}}:</label>
+                            <input type="text" class="form-control" name="recipient_name"
+                                   value="{{$srv_state['srv_email']}}">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {{__('ui.cancel')}}</button>
+                    <button type="button" class="btn btn-primary"
+                            onclick="event.preventDefault();
+                                                        document.getElementById('srvModeParam').submit();">
+                        {{__('ui.ok')}}</button>
                 </div>
             </div>
         </div>

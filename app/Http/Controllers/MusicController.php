@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Music;
+use App\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -18,7 +20,10 @@ class MusicController extends Controller
     {
         // list all songs
         $songs = Music::all();
-        return view('home', ['song_list' => $songs]);
+        $settings = dataManipulator::objArrToAssoc(Settings::all());
+
+        return view('home', ['song_list' => $songs, 'srv_state'=>$settings]);
+
     }
 
     public function playLog(Music $music)
