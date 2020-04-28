@@ -12,8 +12,8 @@
                             {{ __('ui.panel') }}
                         </div>
                         @auth
-                        @if(Auth::user()->isAdmin)
                         <div class="btn-group">
+                            @if(Auth::user()->isAdmin)
                             <div class="btn btn-sm btn-outline-primary text-left text-truncate" id="fScan" title="{{ __('ui.rescan') }}">
                                 <i class="fas fa-sync"></i>
                             </div>
@@ -24,8 +24,12 @@
                                     class="btn btn-sm btn-outline-primary text-right text-truncate" title="{{__('ui.lockreg')}}">
                                 <i class="fas @if($srv_state['lockdown']=='yes') fa-unlock-alt @else fa-lock @endif"></i>
                             </button>
+                            @endif
+                                <div class="btn btn-sm btn-outline-primary text-left text-truncate"
+                                     data-toggle="modal" data-target="#helpModal" title="{{ __('ui.help_btn') }}">
+                                    <i class="fas fa-question"></i>
+                                </div>
                         </div>
-                        @endif
                         @endauth
                     </div>
 
@@ -218,6 +222,38 @@
                             onclick="event.preventDefault();
                                                         document.getElementById('srvModeParam').submit();">
                         {{__('ui.ok')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">{{ __('ui.help_btn') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ asset('img/player_help.png') }}" class="img-fluid">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-danger">1) {{ __('ui.help_1') }}</li>
+                        <li class="list-group-item text-danger">2) {{ __('ui.help_2') }}</li>
+                        <li class="list-group-item text-danger">3) {{ __('ui.help_3') }}</li>
+                        <li class="list-group-item text-danger">4) {{ __('ui.help_4') }}</li>
+                        <li class="list-group-item text-danger">5) {{ __('ui.help_5') }}</li>
+                        <li class="list-group-item text-danger">6) {{ __('ui.help_6') }}</li>
+                        <li class="list-group-item text-danger">7) {{ __('ui.help_7') }}</li>
+                        <li class="list-group-item text-danger">8) {{ __('ui.help_8') }}</li>
+                        <li class="list-group-item text-danger">9) {{ __('ui.help_9') }}</li>
+                        <li class="list-group-item text-danger">10) {{ __('ui.help_10') }}</li>
+                        <li class="list-group-item text-danger">11) {{ __('ui.help_11') }}</li>
+                        <li class="list-group-item text-danger">12) {{ __('ui.help_12') }}</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
                 </div>
             </div>
         </div>

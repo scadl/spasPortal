@@ -105,6 +105,18 @@ class HomeController extends Controller
     }
 
     public function userAdd(){
-        return view('auth.register');
+        return view('auth.register', ['express'=>True]);
+    }
+
+    public function addNewUser(Request $request){
+
+        $usr = new User();
+        $usr->name = $request->name;
+        $usr->email = $request->email;
+        $usr->password = Hash::make($request->password);
+        $usr->setRememberToken(Str::random(60));
+        $usr->save();
+
+        return redirect('users')->with('status', __('ui.adduserok'));
     }
 }

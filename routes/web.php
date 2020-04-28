@@ -45,4 +45,5 @@ Route::post('/pwupdate/{user}', 'HomeController@usrUpdatePw')->name('nepwupd');
 Route::post('/lockreg', 'HomeController@switchRegLock')->name('lockregon');
 Route::get('/lockoff', 'HomeController@switchRegLock')->name('lockregoff');
 Route::get('/useradd', 'HomeController@userAdd')->name('manualadd');
+Route::post('/plususer', 'HomeController@addNewUser')->name('addnewuser');
 
