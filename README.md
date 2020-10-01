@@ -6,3 +6,9 @@
 
 В основе программы лежит MVC веб-фреймворк [Laravel](https://laravel.com/docs).   
 Бакенд пишется на PHP, в то время как фрнотэнд использует специальный шаблонный двидок [Balde](https://laravel.com/docs/8.x/blade). 
+
+### Скриншоты
+
+![screen1](https://github.com/scadl/spasPortal/blob/master/screenshots/photo_2020-04-12_14-52-36.jpg)
+![screen2](https://github.com/scadl/spasPortal/blob/master/screenshots/photo_2020-04-19_18-22-21.jpg)
+![screen3](https://github.com/scadl/spasPortal/blob/master/screenshots/photo_2020-04-19_18-22-23.jpg)
